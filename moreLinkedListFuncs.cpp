@@ -6,27 +6,18 @@
 
 void addIntToEndOfList(LinkedList *list, int value) {
   assert(list!=NULL); // if list is NULL, we can do nothing.
-
-  Node *p; // temporary pointer
-
-  // TODO:
-  // (1) Allocate a new node.  p will point to it.
-
-  p = NULL; // THIS IS PLACE-HOLDER LINE OF CODE.  DELETE IT AND REPLACE IT.
-
-  // (2) Set p's data field to the value passed in
   
-  // (3) Set p's next field to NULL
-
+  Node *p = new Node;
+  p->next = NULL;
+  p->data = value;
 
   if (list->head == NULL) {
-
-    // (4) Make both head and tail of this list point to p
-    
-    
+    list->head = p;
+    list->tail = p;	    
   } else {
-
-    // Add p at the end of the list.   
+    list->tail->next = p;
+    list->tail = p;
+  }
 
     // (5) The current node at the tail? Make it point to p instead of NULL
 
@@ -34,11 +25,19 @@ void addIntToEndOfList(LinkedList *list, int value) {
 
   }
 
-}
 
 void addIntToStartOfList(LinkedList *list, int value) {
   assert(list!=NULL); // if list is NULL, we can do nothing.
+  Node* p = list->head;
+  Node* add = new Node;
+  add->data = value;
+  add->next = p;
 
+  list->head = add;
+
+  if(add->next == NULL){
+	  list->tail = add;
+  }
   // Add code for this.  
   // HINTS:
   //  You will need to allocate a new Node.
@@ -67,10 +66,17 @@ Node * pointerToMax(LinkedList *list) {
   assert(list!=NULL);
   assert(list->head != NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   value of pointer to max element (first one if ties.)
+  Node* max = list->head;
+  Node* p = list->head; //traversal pointer
 
-  return NULL; // STUB!  Replace this line with correct code
+  while(p != NULL){
+    if(p->data > max->data){
+	    max = p;
+    }
+    p = p->next;
+  }
+
+  return max;
 }
 
 // list: ptr to a linked list of Node (each with int data, and Node * next)
@@ -89,11 +95,17 @@ Node * pointerToMin(LinkedList *list) {
   assert(list!=NULL);
   assert(list->head != NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   value of pointer to min element 
-  //   (first one such value that occurs if there are ties.)
+  Node* min = list->head;
+  Node* p = list->head; //traversal pointer
 
-  return NULL; // STUB!  Replace this line with correct code
+  while(p != NULL){
+    if(p->data < min->data){
+	    min = p;
+    }
+    p = p->next;
+  }
+
+  return min; // STUB!  Replace this line with correct code
 
 }
 
@@ -110,10 +122,17 @@ int largestValue(LinkedList *list) {
   assert(list!=NULL);
   assert(list->head != NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   largest value in list (which may not be unique).
+  int max = list->head->data;
+  Node* p = list->head; //traversal pointer
 
-  return -42; // STUB!  Replace this line with correct code
+  while(p != NULL){
+    if(p->data > max){
+	    max = p->data;
+    }
+    p = p->next;
+  }
+
+  return max; // STUB!  Replace this line with correct code
 
 }
 
@@ -132,7 +151,17 @@ int smallestValue(LinkedList *list) {
   // TODO: Insert code here to calculate and return
   //   smallest value in list (which may not be unique).
 
-  return -42; // STUB!  Replace this line with correct code
+  int min = list->head->data;
+  Node* p = list->head; //traversal pointer
+
+  while(p != NULL){
+    if(p->data < min){
+	    min = p->data;
+    }
+    p = p->next;
+  }
+
+  return min; // STUB!  Replace this line with correct code
 
 }
 
@@ -148,10 +177,14 @@ int sum(LinkedList * list) {
 
   assert(list!=NULL);
 
-  // TODO: Insert code here to calculate and return
-  //   sum of all values in list (0 if there are none).
+  int sum = 0;
+  Node* p = list->head; //traversal pointer
 
-  return -42; // STUB!  Replace this line with correct code
+  while(p != NULL){
+    sum += p->data;
+    p= p->next;
+  }
+  return sum; // STUB!  Replace this line with correct code
 
 }
 
